@@ -62,47 +62,65 @@ map.on('load', function () {
     map.addSource('point2', {
         'type': 'geojson',
         'data': {
-            'type': 'FeatureCollection',
-            'features': [
-                {
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': [10, 10]
-                    }
+            "type": "FeatureCollection",
+            "features": [
+              {
+                "type": "Feature",
+                "properties": {
+                  "color": "red"
+                },
+                "geometry": {
+                  "coordinates": [
+                    5.499656415154874,
+                    1.866374018583457
+                  ],
+                  "type": "Point"
                 }
+              },
+              {
+                "type": "Feature",
+                "properties": {
+                  "color": "blue"
+                },
+                "geometry": {
+                  "coordinates": [
+                    20.18925620286845,
+                    12.981568692044434
+                  ],
+                  "type": "Point"
+                }
+              },
+              {
+                "type": "Feature",
+                "properties": {
+                  "color": "green"
+                },
+                "geometry": {
+                  "coordinates": [
+                    -0.9294937604342408,
+                    16.614725819579604
+                  ],
+                  "type": "Point"
+                }
+              }
             ]
-        }
+          }
     });
     map.addMarkerImage('marker', markerOptions )
-    map.loadImage(
-        'https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png',
-        function (error, image) {
-            if (error) throw error;
-            map.addImage('cat', image);
-            
-            map.addLayer({
-                'id': 'points',
-                'type': 'symbol',
-                'source': 'point',
-                'layout': {
-                    'icon-image': 'cat',
-                    'icon-size': 0.1,
-                    'icon-allow-overlap':true
-                }
-            });
-            map.addLayer({
-                'id': 'points-marker',
-                'type': 'symbol',
-                'source': 'point2',
-                'layout': {
-                    'icon-image': 'marker',
-                    'icon-size': 1,
-                    'icon-allow-overlap':true
-                }
-            });
-            
-            
+
+    map.addMarkerImage('red', {'color': '#ff0000'})
+    map.addMarkerImage('blue', {'color': '#0000ff'} )
+    map.addMarkerImage('green', {'color': '#00ff00'} )
+    map.addLayer({
+        'id': 'points-marker',
+        'type': 'symbol',
+        'source': 'point2',
+        'layout': {
+            'icon-image': ['get','color'],
+            'icon-size': 1,
+            'icon-allow-overlap':true
         }
-    );
+    });
+            
+         
 });
