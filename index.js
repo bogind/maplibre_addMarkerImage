@@ -66,7 +66,7 @@ let map = new maplibregl.Map({
 
 map.on('load', function () {
 
-
+  map.addMarkerImage('marker')
   map.addMarkerImage('red-marker', {'anchor': 'bottom', 'color':'red'} )
 
   map.addLayer({
@@ -74,7 +74,7 @@ map.on('load', function () {
       'type': 'symbol',
       'source': '25_day_1',
       'layout': {
-          'icon-image': 'red-marker',
+          'icon-image': 'marker',
           'icon-size': 1,
           'icon-allow-overlap':true
       }
