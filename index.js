@@ -67,19 +67,30 @@ let map = new maplibregl.Map({
 map.on('load', function () {
 
   map.addMarkerImage('marker')
-  map.addMarkerImage('red-marker', {'anchor': 'bottom', 'color':'red'} )
+  map.addMarkerImage('yellow-marker', {'anchor': 'bottom', 'scale':0.7, 'color':'yellow'} )
+  map.addMarkerImage('orange-marker', {'anchor': 'bottom', 'scale':1.5, 'color':'orange'} )
+  map.addMarkerImage('red-marker', {'anchor': 'bottom', 'scale':2, 'color':'red'} )
+  map.addMarkerImage('black-marker', {'anchor': 'bottom', 'scale':3, 'color':'black'} )
 
   map.addLayer({
       'id': 'earthquakes',
       'type': 'symbol',
       'source': '25_day_1',
       'layout': {
-          'icon-image': 'marker',
+          'icon-image': ['case',
+          ['all', ['>=', ['get', 'mag'], 2], ['<', ['get', 'mag'], 3]],
+          'yellow-marker',
+          ['all', ['>=', ['get', 'mag'], 3], ['<', ['get', 'mag'], 4]],
+          'orange-marker',
+          ['all', ['>=', ['get', 'mag'], 4], ['<', ['get', 'mag'], 5]],
+          'red-marker',
+          ['>=', ['get', 'mag'], 5],
+          'black-marker',
+          'marker'
+          ],
           'icon-size': 1,
           'icon-allow-overlap':true
       }
   });
           
-          
-      
 });
